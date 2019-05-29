@@ -1,0 +1,80 @@
+package projectpro;
+
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+
+public class ProjectPro {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+
+        JFrame f = new JFrame("LOGIN");
+        f.setSize(400, 250);
+        f.setLayout(null);
+        f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //BILA TEKAN 'X'.. DIA TERUS AKAN HILANG... KLU TAK LETAK STATEMENT NI.. WALAUPUN DAN TEKAN'X'.. PROJECT STILL RUN
+        f.setLocationRelativeTo(null);//dia akan muncul kat tengah2
+        f.setResizable(false);//size fixed
+
+        JLabel j1 = new JLabel(" NAME:");
+        j1.setBounds(50, 20, 200, 30);
+        f.add(j1);
+
+        JLabel j2 = new JLabel("PASSWORD:");
+        j2.setBounds(50, 60, 200, 30);
+        f.add(j2);
+
+        JTextField jtf1 = new JTextField();
+        jtf1.setBounds(150, 20, 200, 30);
+        f.add(jtf1);
+        jtf1.setBackground(Color.PINK);
+
+        JTextField jtf2 = new JTextField();
+        jtf2.setBounds(150, 60, 200, 30);
+        f.add(jtf2);
+        jtf2.setBackground(Color.PINK);
+
+        Button b1 = new Button("Login");
+        b1.setBounds(100, 120, 100, 30);
+        f.add(b1);
+
+        Button b2 = new Button("Cancel");
+        b2.setBounds(250, 120, 100, 30);
+        f.add(b2);
+
+        b1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+
+                String name = jtf1.getText();
+                String password = jtf2.getText();
+
+                if (name.equalsIgnoreCase("Afrin") && (password.equalsIgnoreCase("7073"))) {
+                    JOptionPane.showMessageDialog(null, "Welcome To Parcel Company");
+                    f.setVisible(false);
+                    MainInterface frame = new MainInterface();
+                } else {
+                    JOptionPane.showMessageDialog(null, "You Can't Login");
+                    jtf1.setText(null);
+                    jtf2.setText(null);
+                }
+            }
+        });
+
+        b2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                f.setVisible(false);
+                f.dispose();
+
+            }
+        });
+
+    }
+
+}
