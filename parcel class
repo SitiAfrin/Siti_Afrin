@@ -1,0 +1,44 @@
+package projectpro;
+
+/**
+ *
+ * @author USER
+ */
+public class Parcel {
+
+    private String trackNum;
+    private String from;
+    private String to;
+
+    public Parcel(String n, String f, String t) {
+        trackNum = n;
+        from = f;
+        to = t;
+    }
+
+
+    public void setTrackNum(String n) {
+        trackNum = n;
+    }
+
+    public void setFrom(String f) {
+        from = f;
+    }
+
+    public void setTo(String t) {
+        to = t;
+    }
+
+    public String getTrackNum() {
+        return trackNum;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+}
