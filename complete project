@@ -1,0 +1,393 @@
+package projectpro;
+
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+
+public class ProjectPro {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+
+        JFrame f = new JFrame("LOGIN");
+        f.setSize(400, 250);
+        f.setLayout(null);
+        f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //BILA TEKAN 'X'.. DIA TERUS AKAN HILANG... KLU TAK LETAK STATEMENT NI.. WALAUPUN DAN TEKAN'X'.. PROJECT STILL RUN
+        f.setLocationRelativeTo(null);//dia akan muncul kat tengah2
+        f.setResizable(false);//size fixed
+
+        JLabel j1 = new JLabel(" NAME:");
+        j1.setBounds(50, 20, 200, 30);
+        f.add(j1);
+
+        JLabel j2 = new JLabel("PASSWORD:");
+        j2.setBounds(50, 60, 200, 30);
+        f.add(j2);
+
+        JTextField jtf1 = new JTextField();
+        jtf1.setBounds(150, 20, 200, 30);
+        f.add(jtf1);
+        jtf1.setBackground(Color.PINK);
+
+        JTextField jtf2 = new JTextField();
+        jtf2.setBounds(150, 60, 200, 30);
+        f.add(jtf2);
+        jtf2.setBackground(Color.PINK);
+
+        Button b1 = new Button("Login");
+        b1.setBounds(100, 120, 100, 30);
+        f.add(b1);
+
+        Button b2 = new Button("Cancel");
+        b2.setBounds(250, 120, 100, 30);
+        f.add(b2);
+
+        b1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+
+                String name = jtf1.getText();
+                String password = jtf2.getText();
+
+                if (name.equalsIgnoreCase("Afrin") && (password.equalsIgnoreCase("7073"))) {
+                    JOptionPane.showMessageDialog(null, "Welcome To Parcel Company");
+                    f.setVisible(false);
+                    MainInterface frame = new MainInterface();
+                } else {
+                    JOptionPane.showMessageDialog(null, "You Can't Login");
+                    jtf1.setText(null);
+                    jtf2.setText(null);
+                }
+            }
+        });
+
+        b2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                f.setVisible(false);
+                f.dispose();
+
+            }
+        });
+
+    }
+
+}
+
+
+
+
+
+
+
+package projectpro;
+
+/**
+ *
+ * @author USER
+ */
+public class Parcel {
+
+    private String trackNum;
+    private String from;
+    private String to;
+
+    public Parcel(String n, String f, String t) {
+        trackNum = n;
+        from = f;
+        to = t;
+    }
+
+
+    public void setTrackNum(String n) {
+        trackNum = n;
+    }
+
+    public void setFrom(String f) {
+        from = f;
+    }
+
+    public void setTo(String t) {
+        to = t;
+    }
+
+    public String getTrackNum() {
+        return trackNum;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+}
+
+
+
+
+
+
+
+package projectpro;
+
+//import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
+
+/**
+ *
+ * @author USER
+ */
+public class MainInterface {
+
+    static ArrayList<Parcel> parcellist;
+    public static JTextField jtf1, jtf2, jtf3;
+
+    public MainInterface() {
+
+        parcellist = new ArrayList<Parcel>();
+
+        JFrame g = new JFrame("PARCEL'S DETAILS");
+        g.setSize(1000, 1000);
+        g.setLayout(null);
+        g.setVisible(true);
+        g.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //BILA TEKAN 'X'.. DIA TERUS AKAN HILANG... KLU TAK LETAK STATEMENT NI.. WALAUPUN DAN TEKAN'X'.. PROJECT STILL RUN
+        g.setLocationRelativeTo(null);//dia akan muncul kat tengah2
+        g.setResizable(false);//size fixed
+        loadFile();
+
+        Button b1 = new Button("ADD");
+        b1.setBounds(100, 850, 200, 40);
+        g.add(b1);
+
+        Button b2 = new Button("DELETE");
+        b2.setBounds(320, 850, 200, 40);
+        g.add(b2);
+
+        Button b3 = new Button("UPDATE");
+        b3.setBounds(530, 850, 200, 40);
+        g.add(b3);
+
+        Button b4 = new Button("SEARCH");
+        b4.setBounds(740, 850, 200, 40);
+        g.add(b4);
+
+        JLabel l1 = new JLabel("Track Number:");
+        l1.setBounds(100, 800, 150, 30);
+        g.add(l1);
+
+        JTextField jtf1 = new JTextField();
+        jtf1.setBounds(200, 800, 150, 30);
+        g.add(jtf1);
+        jtf1.setBackground(Color.PINK);
+
+        JLabel l2 = new JLabel("From:");
+        l2.setBounds(430, 800, 150, 30);
+        g.add(l2);
+
+        JTextField jtf2 = new JTextField();
+        jtf2.setBounds(470, 800, 150, 30);
+        g.add(jtf2);
+        jtf2.setBackground(Color.PINK);
+
+        JLabel l3 = new JLabel("To:");
+        l3.setBounds(700, 800, 150, 30);
+        g.add(l3);
+
+        JTextField jtf3 = new JTextField();
+        jtf3.setBounds(740, 800, 150, 30);
+        g.add(jtf3);
+        jtf3.setBackground(Color.PINK);
+
+        JTable jTable = new JTable();
+
+        JScrollPane pane = new JScrollPane(jTable);
+        pane.setBounds(100, 50, 800, 700);
+        g.add(pane);
+
+        DefaultTableModel dtm;
+        String header[] = new String[]{"Tracking Number", "From Where", "To Where"};
+        dtm = new DefaultTableModel();
+        dtm.setColumnIdentifiers(header);
+        jTable.setModel(dtm);
+
+        b1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+
+                String info1, info2, info3;
+
+                info1 = jtf1.getText();
+                info2 = jtf2.getText();
+                info3 = jtf3.getText();
+
+                parcellist.add(new Parcel(info1, info2, info3));
+                insertFile();
+
+                dtm.setRowCount(0);
+
+                for (int row = 0; row < parcellist.size(); row++) {
+                    String[] objs = {parcellist.get(row).getTrackNum(), parcellist.get(row).getFrom(), parcellist.get(row).getTo()};
+                    dtm.addRow(objs);
+                }
+                
+                jtf1.setText("");
+                jtf2.setText(" ");
+                jtf3.setText("");
+
+            }
+        });
+
+        b2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+
+                int row = jTable.getSelectedRow();
+                if (row >= 0) {
+                    dtm.removeRow(row);
+                    parcellist.remove(row);
+                    insertFile();
+
+                    dtm.setRowCount(0);
+
+                    for (int i = 0; i < parcellist.size(); i++) {
+                        String[] objs = {parcellist.get(i).getTrackNum(), parcellist.get(i).getFrom(), parcellist.get(i).getTo()};
+                        dtm.addRow(objs);
+                    }
+
+                } 
+                jtf1.setText("");
+                jtf2.setText(" ");
+                jtf3.setText("");
+                
+                
+            }
+        });
+
+        b3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                String info1, info2, info3;
+
+                info1 = jtf1.getText();
+                info2 = jtf2.getText();
+                info3 = jtf3.getText();
+
+                int row = jTable.getSelectedRow();
+
+                if (row >= 0) {
+                    dtm.setValueAt(info1, row, 0);
+                    dtm.setValueAt(info2, row, 1);
+                    dtm.setValueAt(info3, row, 2);
+
+                    parcellist.add(new Parcel(info1, info2, info3));
+                    insertFile();
+                } else {
+
+                }
+
+            }
+        });
+
+        b4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+
+                String input = JOptionPane.showInputDialog(jtf1, "Search Parcel's Tracking Number");
+
+                for (int i = 0; i < parcellist.size(); i++) {
+
+                    if (parcellist.get(i).getTrackNum().equalsIgnoreCase(input)) {
+
+                        JOptionPane.showMessageDialog(jtf1, "Track Number Founded");
+                        break;
+                    }
+                    else{
+                     JOptionPane.showMessageDialog(jtf1, "Track Not Founded");
+                     break;
+                    }
+                   
+                }
+
+                
+
+            }
+        });
+
+        jTable.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int row = jTable.getSelectedRow();
+                jtf1.setText(dtm.getValueAt(row, 0).toString());
+                jtf2.setText(dtm.getValueAt(row, 1).toString());
+                jtf3.setText(dtm.getValueAt(row, 2).toString());
+            }
+
+        });
+
+    }
+
+    private static void insertFile() {
+        try {
+            File outFile = new File("parcel.txt");
+            FileWriter outFileStream = new FileWriter(outFile);
+            PrintWriter outStream = new PrintWriter(outFileStream);
+            for (int i = 0; i < parcellist.size(); i++) {
+                outStream.println("Tracking Number :" +parcellist.get(i).getTrackNum());
+                outStream.println("From :" + parcellist.get(i).getFrom());
+                outStream.println("To :" +parcellist.get(i).getTo() );
+                outStream.println("\n");
+
+            }
+            outStream.close();
+
+        } catch (Exception ex) {
+        }
+
+    }
+
+    private static void loadFile() {
+
+        String a, b, c;
+        try {
+            File inFile = new File("parcel.txt");
+            Scanner scanner = new Scanner(inFile);
+            a = scanner.nextLine();
+            b = scanner.nextLine();
+            c = scanner.nextLine();
+
+            jtf1.setText(a);
+            jtf2.setText(b);
+            jtf3.setText(c);
+
+        } catch (Exception ex) {
+
+        }
+
+    }
+
+}
+
